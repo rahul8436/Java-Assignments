@@ -1,0 +1,287 @@
+import java.util.Scanner;
+
+import p2.Booklist;
+import p1.Memberlist;
+import p3.Transaction;
+public class Main {
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		Scanner sc1=new Scanner(System.in);
+		int ch;
+		Booklist ob[]=new Booklist[50];
+		Memberlist ob1[]=new Memberlist[50];
+		Transaction tob=new Transaction();
+		int bcount=0,mcount=0;
+		String book_id="";
+		int nstock=0;
+		String title="";
+		int i,j;
+		String name,member_id,dob;
+		int books;
+		while(true)
+		{
+		System.out.println("          :ENTER YOUR CHOICE:");
+		System.out.println("\n1.ADD NEW BOOK IN LIST\n2.ADD MORE COPIES FOR A BOOK\n3.SHOW ALL BOOK DETAIL\n4.SHOW DETAILS OF A BOOK");
+		System.out.println("5.ADD MEMBER IN THE LIST\n6.SHOW ALL MEMBERS\n7.SHOW DETAIL OF A MEMBER\n8.ISSUE A BOOK\n9.RETURN A BOOK");
+		ch=sc.nextInt();
+		switch(ch)
+		{
+			case 1:
+			int flag=0;
+			System.out.println("ENTER THE BOOK ID OF THE BOOK");
+			book_id=sc1.nextLine();
+			System.out.println("ENTER THE NO OF COPIES STOCKED IN THE LIBRARY OF THE BOOK");
+			nstock=sc.nextInt();
+			for(j=0;j<bcount;j++)
+			{
+				if(ob[j].book_id.equals(book_id)==true)
+				{
+					ob[j].t_c+=nstock;
+					ob[j].stock_count(nstock);
+					flag=1;
+					break;
+				}
+			}
+			if(flag==0)
+			{
+				System.out.println("ENTER THE TITLE OF THE BOOK");
+				title = sc1.nextLine();
+				ob[bcount]=new Booklist();
+				ob[bcount].setBook_id(book_id);
+				ob[bcount].setTitle(title);
+				ob[bcount].setStock(nstock);
+				ob[bcount].setTotal_purchased_copy(0);
+				ob[j].t_c+=nstock;
+				bcount++;
+			}	
+			break;
+			case 2:
+				flag=0;
+				System.out.println("enter the book_id");
+				book_id=sc1.nextLine();
+			
+				for(j=0;j<bcount;j++)
+				{
+					if(ob[j].book_id.equals(book_id)==true)
+					{
+						System.out.println("enter the number of books you wanna add to stock");
+						nstock=sc.nextInt();
+						ob[j].t_c+=nstock;
+						ob[j].stock_count(nstock);
+						flag=1;
+						break;
+					}
+					
+				}
+				if(flag==0)
+				{
+					System.out.println("DATABASE EMPTY!!!!");
+				}
+				break;
+				
+			case 3:
+				if(bcount==0)
+				{
+					System.out.println("NO BOOKS HAS BEEN REGISTERED YET TO STOCK");
+				}
+				else
+				{
+					System.out.println("BOOK ID"+" \t"+"TITLE"+"\t"+"TOTAL COPIES"+"\t"+"INDIVIDUAL STOCK"+"\t"+"TOTAL PURCHASED COPIES");	
+					for(int k=0;k<bcount;k++)
+					{
+						ob[k].show();
+					}
+				}
+					break;
+					
+					case 4:
+						flag=0;
+						System.out.println("ENTER THE TITLE OF THE BOOK TO SHOW DETAILS OF THAT");
+						title=sc1.nextLine();
+						for(j=0;j<bcount;j++)
+						{
+							if(ob[j].title.equals(title)==true)
+							{
+								System.out.println("BOOK ID"+" \t"+"TITLE"+"\t"+"TOTAL COPIES"+"\t"+"INDIVIDUAL STOCK"+"\t"+"TOTAL PURCHASED COPIES");
+								ob[j].show();
+								flag=1;
+								break;
+							}
+						}
+						if(flag==0)
+						{
+							System.out.println("invalid input!!!!");
+						}
+				
+				
+				
+		break;
+			case 5:
+				flag=0;
+				System.out.println("enter the member id to be added in the directory");
+				member_id=sc1.nextLine();
+				for(j=0;j<mcount;j++)
+				{
+					if(ob1[j].member_id.equals(member_id)==true)
+					{
+						System.out.println("MEMBER ALREADY DO EXIST!!!!!!");
+						flag=1;
+						break;
+					}
+				}
+				if(flag==0)
+				{
+					System.out.println("ENTER THE NAME OF THE MEMBER:");
+				    name = sc1.nextLine();
+				    System.out.println("ENTER THE DATE OF BIRTH OF THE MEMBER:");
+				    dob=sc1.nextLine();
+					ob1[mcount]=new Memberlist();
+					ob1[mcount].setMember_id(member_id);
+					ob1[mcount].setName(name);
+					ob1[mcount].setDob(dob);
+					ob1[mcount].setBooks(0);
+					mcount++;
+				}
+				break;
+			case 6:
+				if(mcount==0)
+				{
+					System.out.println("NO MEMBER HAS BEEN ISSUED YET");
+				}
+				else{
+					for(int l=0;l<mcount;l++)
+					{
+						System.out.println("MEMBER ID"+" \t"+"NAME"+"\t"+"DATE OF BIRTH"+"\t"+"NO OF BOOKS ISSUED BY HIM");
+						ob1[l].show();
+						//break;
+					}
+				}
+				break;
+		    case 7:
+		    	flag=0;
+		    	System.out.println("enter the member id of the member");
+		    	member_id=sc1.nextLine();
+		    	for(j=0;j<mcount;j++)
+				{
+					if(ob1[j].member_id.equals(member_id)==true)
+					{
+						System.out.println("MEMBER ALREADY DO EXIST!!!!!!");
+						System.out.println("MEMBER ID"+" \t"+"NAME"+"\t"+"DATE OF BIRTH"+"\t"+"NO OF BOOKS ISSUED BY HIM");
+						ob1[j].show();
+						flag=1;
+						break;
+					}
+				}
+		    	if(flag==0){
+		    		System.out.println("MEMBER DOESN'T EXIST!!!!!!");
+		    	}
+		    	break;
+		    case 8:
+		    	
+		    	System.out.println("enter the member id");
+		    	member_id=sc1.nextLine();
+		    	System.out.println("enter the book name");
+		    	title=sc1.nextLine();
+		    	System.out.println("enter the no of books you want to take");
+		    	int no_b=sc.nextInt();
+		    	int mindex=-1;
+		    	//System.out.println(member_id);
+				for( j=0;j<mcount;j++)
+				{
+					
+					if(ob1[j].member_id.equals(member_id)==true)
+					{
+						 mindex=j;
+					}
+				}
+				
+			int bindex=-1,k;
+			for(k=0;k<bcount;k++)
+			{
+				
+				if(ob[k].title.equals(title)==true)
+				{
+					bindex=k;
+				}
+			}	
+			if(mindex==-1){
+	    		System.out.println("member doesn't exist");
+	    	}
+	    
+			else if(bindex==-1)
+		    	{
+		    		System.out.println("book doesn't  exist");
+		    	}
+			else if(ob1[mindex].books+no_b<5)
+		    	{
+				//ob1[mindex].show();
+		    	//ob[bindex].show();
+		    	ob1=tob.tranc_member(mindex,ob1,no_b);
+		    	ob=tob.trans_book(bindex,ob,no_b);
+		    	System.out.println("after modified ");
+		    	System.out.println("MEMBER ID"+" \t"+"NAME"+"\t"+"DATE OF BIRTH"+"\t"+"NO OF BOOKS ISSUED BY HIM");
+		    	ob1[mindex].show();
+		    	System.out.println("BOOK ID"+" \t"+"TITLE"+"\t"+"TOTAL STOCK"+"\t"+"INDIVIDUAL COPIES"+"\t"+"TOTAL PURCHASED COPIES");
+		    	ob[bindex].show();
+		    	}
+		    	break;
+		    case 9:
+		    	System.out.println("enter the member id:");
+		    	member_id=sc1.nextLine();
+		    	System.out.println("no of books the member want to return:");
+		    	no_b=sc.nextInt();
+		    	 mindex=-1;
+		    	for( j=0;j<mcount;j++)
+				{
+					
+					if(ob1[j].member_id.equals(member_id)==true)
+					{
+						 mindex=j;
+					}
+				}
+				
+			 bindex=-1;
+			for(k=0;k<bcount;k++)
+			{
+				
+				if(ob[k].title.equals(title)==true)
+				{
+					bindex=k;
+				}
+			}	
+			if(mindex==-1){
+	    		System.out.println("member doesn't exist");
+	    	}
+	    
+			else if(bindex==-1)
+		    	{
+		    		System.out.println("book doesn't  exist");
+		    	}
+			else
+			{
+				if(ob1[mindex].books>=no_b)
+					
+		    	{ob1=tob.trans_ret_member(mindex,ob1,no_b);
+		    	ob=tob.trans_ret_book(bindex,ob,no_b);
+		    	System.out.println("after returned ");
+		    	System.out.println("MEMBER ID"+" \t"+"NAME"+"\t"+"DATE OF BIRTH"+"\t"+"NO OF BOOKS ISSUED BY HIM");
+		    	ob1[mindex].show();
+		    	System.out.println("BOOK ID"+" \t"+"TITLE"+"\t"+"TOTAL STOCK"+"\t"+"INDIVIDUAL COPIES"+"\t"+"TOTAL PURCHASED COPIES");
+		    	ob[bindex].show();
+			    }
+				else
+				{
+					System.out.println("please check how many books  you really have!!!");
+				}
+			}
+			break;
+			default:
+			System.exit(0);
+			
+			
+		}
+		}
+	}
+	}
+
+	
