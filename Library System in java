@@ -1,0 +1,48 @@
+package p2;
+
+public class Booklist {
+	public String book_id,title;
+	public int total_purchased_copy,stock;
+	public static int t_c;
+	public String getBook_id() {
+		return book_id;
+	}
+	public void setBook_id(String book_id) {
+		this.book_id = book_id;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public int getTotal_purchased_copy() {
+		return total_purchased_copy;
+	}
+	public void setTotal_purchased_copy(int total_purchased_copy) {
+		this.total_purchased_copy = total_purchased_copy;
+	}
+	public int getStock() {
+		return stock;
+	}
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
+	public static int getT_c() {
+		return t_c;
+	}
+	public static void setT_c(int t_c) {
+		Booklist.t_c = t_c;
+	}
+	public void show()
+	{
+		//System.out.println("BOOK ID"+" \t"+"TITLE"+"\t"+"TOTAL STOCK"+"\t"+"INDIVIDUAL COPIES"+"\t"+"TOTAL PURCHASED COPIES");
+		System.out.println(book_id+"\t\t"+title+"\t"+t_c+"\t\t\t"+stock+"\t\t\t\t"+total_purchased_copy);
+	}
+	public int stock_count(int v) {
+		
+		stock+=v;
+		return stock;
+	}
+
+}
