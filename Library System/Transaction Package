@@ -1,0 +1,48 @@
+package p3;
+
+import p1.Memberlist;
+import p2.Booklist;
+public class Transaction {
+	
+
+	
+	public Memberlist[] tranc_member(int mindex, Memberlist[] ob1,int no_b) {
+		if(ob1[mindex].books<5 && (ob1[mindex].books+no_b)<5)
+		{
+			ob1[mindex].books+=no_b;
+		}
+		return ob1;
+	}
+
+	@SuppressWarnings("static-access")
+	public Booklist[] trans_book(int bindex, Booklist[] ob, int no_b) {
+		if(ob[bindex].t_c>=no_b)
+		{
+		ob[bindex].t_c-=no_b;
+		ob[bindex].stock-=no_b;
+		ob[bindex].total_purchased_copy+=no_b;
+		}
+		else
+		{
+			System.out.println("SORRY TO SAY THAT STOCK IS NOT AVAILABLE!!!!!!");
+		}
+		return ob;
+	}
+	public Memberlist[] trans_ret_member(int mindex, Memberlist[] ob1,int no_b) {
+		
+		
+			ob1[mindex].books-=no_b;
+		
+		return ob1;
+	}
+
+	@SuppressWarnings("static-access")
+	public Booklist[] trans_ret_book(int bindex, Booklist[] ob, int no_b) {
+
+		
+		ob[bindex].t_c+=no_b;
+		ob[bindex].stock+=no_b;
+		ob[bindex].total_purchased_copy-=no_b;
+		return ob;
+	}
+}
